@@ -7,6 +7,7 @@ import {useState, useEffect} from 'react';
 function App() {
   //funciones, variables, handles,
   const [listCountry, setCountry] = useState([]);
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
     callToApi().then((dataApi) => {
@@ -18,17 +19,24 @@ function App() {
   const handleForm = (ev) => {
     ev.preventDefault();
   };
+  const handleInputSearch = (ev) => {
+    setSearch(ev.target.value);
+  };
 
   const renderListCountry = () => {
     return listCountry
-    .map ((item, i) =>(
-      <li key={i}>
-        <p>{item.flag}</p>
-        <p>{item.name.common}</p>
-        <p>{item.capital}</p>
-        <p>{item.continents}</p>
-      </li>
-    ))
+      .filter(
+        (item) =>
+          item.name.common.toLowerCase().includes(search.toLowerCase()) 
+      )
+      .map((item, i) => (
+        <li key={i}>
+          <p>{item.flag}</p>
+          <p>{item.name.common}</p>
+          <p>{item.capital}</p>
+          <p>{item.continents}</p>
+        </li>
+      ));
   };
 
   //html
@@ -45,7 +53,13 @@ function App() {
         <h3>Filters</h3>
         <form action="" onSubmit={handleForm}>
           <label htmlFor="">By Country</label>
-          <input type="text" />
+          <input
+            type="text"
+            name="country"
+            id="country"
+            value={search}
+            onChange={handleInputSearch}
+          />
 
           <label htmlFor="">By Continent</label>
           <select name="" id="">
