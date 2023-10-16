@@ -13,7 +13,7 @@ function App() {
     flag: '',
     name: '',
     capital: '',
-    continents: '',
+    continents: ''
   });
 
   useEffect(() => {
@@ -44,7 +44,7 @@ function App() {
       flag: '',
       name: '',
       capital: '',
-      continents: '',
+      continents: ''
     });
     setListCountry([...listCountry, newCountry]);
   };
